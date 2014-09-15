@@ -7,7 +7,7 @@ import (
 	"github.com/zimmski/backup/exec"
 )
 
-type mountFtp struct {
+type mountFTP struct {
 	ftp    string
 	folder string
 
@@ -19,11 +19,11 @@ type mountFtp struct {
 	sslDoNotVerify bool
 }
 
-var _ Mounter = (*mountFtp)(nil)
+var _ Mounter = (*mountFTP)(nil)
 
 // New returns a new FTP mount point
-func New(ftp string, folder string) *mountFtp {
-	return &mountFtp{
+func NewFTP(ftp string, folder string) *mountFTP {
+	return &mountFTP{
 		ftp:    ftp,
 		folder: folder,
 
@@ -36,19 +36,19 @@ func New(ftp string, folder string) *mountFtp {
 // attributes
 
 // SSL sets if the FTP connection uses SSL
-func (m *mountFtp) SSL(set bool) {
+func (m *mountFTP) SSL(set bool) {
 	m.ssl = set
 }
 
 // SSLDoNotVerify sets if SSL connections are verified, like the credibility of the certificate
-func (m *mountFtp) SSLDoNotVerify(set bool) {
+func (m *mountFTP) SSLDoNotVerify(set bool) {
 	m.sslDoNotVerify = set
 }
 
 // Mounter interface
 
 // Mount mounts this object
-func (m *mountFtp) Mount() error {
+func (m *mountFTP) Mount() error {
 	if m.mounted {
 		return backup.NewError(backup.AlreadyMounted, "mount point already mounted")
 	}
@@ -89,7 +89,7 @@ func (m *mountFtp) Mount() error {
 }
 
 // Umount unmounts this object
-func (m *mountFtp) Umount() error {
+func (m *mountFTP) Umount() error {
 	if !m.mounted {
 		return backup.NewError(backup.NotMounted, "mount point needs to be mounted")
 	}
@@ -109,6 +109,6 @@ func (m *mountFtp) Umount() error {
 }
 
 // AllowAccessToOthers sets the attribute that determines if other users are allowed to access the mount point not just the user who mounted it
-func (m *mountFtp) AllowAccessToOthers(set bool) {
+func (m *mountFTP) AllowAccessToOthers(set bool) {
 	m.allowAccessToOthers = set
 }
