@@ -24,6 +24,7 @@ func Combined(name string, args ...string) (string, error) {
 	return string(out), err
 }
 
+// CombinedWithDirectOutput executes a command with given arguments and prints (to StdOut) and returns the combined output
 func CombinedWithDirectOutput(name string, args ...string) (string, error) {
 	if backup.Verbose {
 		fmt.Fprintln(os.Stderr, "Execute: ", name, strings.Join(args, " "))

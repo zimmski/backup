@@ -22,7 +22,7 @@ type tunnelSSH struct {
 
 var _ Tunneler = (*tunnelSSH)(nil)
 
-// New returns a new SSH tunnel
+// NewSSH returns a new SSH tunnel
 func NewSSH(over string, to string, onPort uint) *tunnelSSH {
 	return &tunnelSSH{
 		over: over,

@@ -21,7 +21,7 @@ type mountSSH struct {
 
 var _ Mounter = (*mountSSH)(nil)
 
-// New returns a new SSH mount point
+// NewSSH returns a new SSH mount point
 func NewSSH(ssh string, folder string) *mountSSH {
 	return &mountSSH{
 		ssh:    ssh,

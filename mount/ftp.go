@@ -21,7 +21,7 @@ type mountFTP struct {
 
 var _ Mounter = (*mountFTP)(nil)
 
-// New returns a new FTP mount point
+// NewFTP returns a new FTP mount point
 func NewFTP(ftp string, folder string) *mountFTP {
 	return &mountFTP{
 		ftp:    ftp,
