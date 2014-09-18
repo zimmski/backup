@@ -81,6 +81,7 @@ func (t *tunnelSSH) Open() error {
 	}
 
 	// wait a bit to let the tunnel connect
+	// TODO remove this somehow
 	time.Sleep(2 * time.Second)
 
 	// TODO check stdout and stderr
