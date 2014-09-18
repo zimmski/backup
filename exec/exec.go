@@ -12,3 +12,8 @@ func Combined(name string, args ...string) (string, error) {
 
 	return string(out), err
 }
+
+// Command returns a generic exec command
+func Command(name string, args ...string) *osexec.Cmd {
+	return osexec.Command(name, args...)
+}

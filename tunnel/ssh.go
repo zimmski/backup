@@ -2,9 +2,11 @@ package tunnel
 
 import (
 	"fmt"
-	"os/exec"
+	osexec "os/exec"
+	"time"
 
 	"github.com/zimmski/backup"
+	"github.com/zimmski/backup/exec"
 )
 
 type tunnelSSH struct {
@@ -13,7 +15,7 @@ type tunnelSSH struct {
 	port uint
 
 	opened bool
-	cmd    *exec.Cmd
+	cmd    *osexec.Cmd
 
 	compress bool
 }
@@ -59,6 +61,9 @@ func (t *tunnelSSH) Open() error {
 		args = append(args, "-C")
 	}
 
+	// always force IPv4
+	args = append(args, "-4")
+
 	// bind port to address
 	args = append(args, "-L", fmt.Sprintf("%d:%s", t.port, t.to))
 
@@ -66,14 +71,17 @@ func (t *tunnelSSH) Open() error {
 	args = append(args, "-N")
 
 	// let ssh go into the background
-	args = append(args, "-f")
+	//args = append(args, "-f")
 
 	t.cmd = exec.Command(cmdName, args...)
 
-	err := t.cmd.Run()
+	err := t.cmd.Start()
 	if err != nil {
 		return err
 	}
+
+	// wait a bit to let the tunnel connect
+	time.Sleep(2 * time.Second)
 
 	// TODO check stdout and stderr
 

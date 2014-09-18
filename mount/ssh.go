@@ -4,9 +4,9 @@ import (
 	"bytes"
 	"fmt"
 	"io"
-	"os/exec"
 
 	"github.com/zimmski/backup"
+	"github.com/zimmski/backup/exec"
 )
 
 type mountSSH struct {
@@ -82,7 +82,7 @@ func (m *mountSSH) Mount() error {
 	cmd.Stdout = &buf
 	cmd.Stderr = &buf
 
-	err = cmd.Run()
+	err = cmd.Start()
 	if err != nil {
 		return err
 	}
@@ -92,6 +92,16 @@ func (m *mountSSH) Mount() error {
 		if err != nil {
 			return err
 		}
+
+		err = stdin.Close()
+		if err != nil {
+			return err
+		}
+	}
+
+	err = cmd.Wait()
+	if err != nil {
+		return err
 	}
 
 	if buf.Len() != 0 {
