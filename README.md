@@ -1,6 +1,6 @@
 # backup
 
-This repository holds a set of packages to mount and create backups via Go instead of BASH and Perl. External programs are still needed but instead of unmaintainable scripts, clean and structured Go code can be used.
+This repository holds a set of packages to mount folders, create tunnels and do backups via Go instead of BASH and Perl. External programs are still needed but instead of unmaintainable scripts with confusing arguments and options, clean and structured Go code can be used.
 
 ```go
 package main
