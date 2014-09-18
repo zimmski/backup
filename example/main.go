@@ -3,6 +3,7 @@
 package main
 
 import (
+	"github.com/zimmski/backup/backup"
 	"github.com/zimmski/backup/mount"
 )
 
@@ -15,7 +16,17 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	defer ftp.Umount()
+	defer func() {
+		err := ftp.Umount()
+		if err != nil {
+			panic(err)
+		}
+	}()
 
-	// use the FTP mount point to backup something
+	sync := backup.NewRsync("/important/stuff", "/mnt/backups")
+
+	err = sync.Backup()
+	if err != nil {
+		panic(err)
+	}
 }
