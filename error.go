@@ -10,10 +10,14 @@ type ErrorType int
 const (
 	// AlreadyMounted mount point already mounted
 	AlreadyMounted ErrorType = iota
+	// AlreadyOpened tunnel already opened
+	AlreadyOpened
 	// FolderDoesNotExist folder does not exist
 	FolderDoesNotExist
 	// NotMounted mount point needs to be mounted
 	NotMounted
+	// NotOpened tunnel needs to be opened
+	NotOpened
 	// UnexpectedOutput did not expect any output from this execution
 	UnexpectedOutput
 )
@@ -22,10 +26,14 @@ func (e ErrorType) String() string {
 	switch e {
 	case AlreadyMounted:
 		return "mount point already mounted"
+	case AlreadyOpened:
+		return "tunnel already opened"
 	case FolderDoesNotExist:
 		return "folder does not exist"
 	case NotMounted:
 		return "mount point needs to be mounted"
+	case NotOpened:
+		return "tunnel needs to be opened"
 	case UnexpectedOutput:
 		return "did not expect any output from this execution"
 	default:
